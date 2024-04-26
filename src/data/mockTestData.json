@@ -1,0 +1,45 @@
+{
+    "deadlineTime": "0.5",
+    "questions": [
+        {
+            "number": 1,
+            "type": "one_answer",
+            "points": 10,
+            "condition": "Как расшифровывается аббревиатура HTML?",
+            "answers": ["How to make links", "HyperText Markup Language", "Hyper Text Markdown Language", "Hyperlink Transfer Motion Location"],
+            "trueAnswer": ["HyperText Markup Language"]
+        },
+        {
+            "number": 2,
+            "type": "one_answer",
+            "points": 10,
+            "condition": "Расшифруйте аббревиатуру DOM",
+            "answers": ["Digital Optical Modulation", "Domestic Object Mode", "Domain Operation Method", "Document Object Model"],
+            "trueAnswer": ["Document Object Model"]
+        },
+        {
+            "number": 3,
+            "type": "multi_answer",
+            "points": 10,
+            "condition": "test multi answer",
+            "answers": ["first", "second", "third", "test_4", "test_5", "test_6"],
+            "trueAnswer": ["second", "test_4", "test_5"]
+        },
+        {
+            "number": 4,
+            "type": "short_answer",
+            "points": 10,
+            "condition": "Расшифруйте аббревиатуру CSS",
+            "answers": ["CSS"],
+            "trueAnswer": ["Cascading Style Sheets"]
+        },
+        {
+            "number": 5,
+            "type": "full_answer",
+            "points": 10,
+            "condition": "Перечислите технологии, которыми вы владеете",
+            "answers": [],
+            "trueAnswer": []
+        }
+    ]
+}

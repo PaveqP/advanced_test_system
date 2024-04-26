@@ -1,0 +1,5 @@
+export {OneAnswer} from './oneAnswer/OneAnswer'
+export {MultiAnswer} from './multiAnswer/MultiAnswer'
+export {ShortAnswer} from './shortAnswer/ShortAnswer'
+export {FullAnswer} from './fullAnswer/FullAnswer'
+export {Timer} from './timer/Timer'

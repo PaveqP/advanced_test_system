@@ -1,0 +1,32 @@
+.testInfo{
+
+    &__row{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    &__title{
+        color: #0070F4;
+        font-weight: bold;
+        font-size: 48px;
+        margin-right: 50px;
+    }
+
+    &__currentQuestion{
+        border: 3px solid #0070F4;
+        border-radius: 7px;
+        color: #0070F4;
+        padding: 10px 30px;
+        font-weight: bold;
+        font-size: 24px;
+    }
+
+    &__separator{
+        margin-top: 10px;
+        width: 100%;
+        height: 3px;
+        border-radius: 50px;
+        background-color: #0070F4;
+    }
+}

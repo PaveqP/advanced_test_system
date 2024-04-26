@@ -1,0 +1,25 @@
+.multiAnswer{
+
+    &__variants{
+        margin-top: 100px;
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+    }
+}
+
+.variants{
+
+    &-variant{
+        display: flex;
+        align-items: center;
+        color: #0070F4;
+        font-size: 24px;
+        font-weight: 400;
+        gap: 10px;
+    }
+}
+
+.variant-text{
+
+}
