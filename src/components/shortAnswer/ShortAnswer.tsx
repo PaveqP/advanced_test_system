@@ -1,13 +1,9 @@
-import React, { FC, useState } from 'react'
+import React, { FC, memo, useState } from 'react'
 import './ShortAnswer.scss'
 import { SetCurrentAnswer } from '../../store/testReducer'
 import { store } from '../../store'
 
-interface IShortAnswer {
-	trueCase: string,
-  points: number
-}
-const ShortAnswer: FC<IShortAnswer> = ({trueCase}) => {
+const ShortAnswer: FC = () => {
 
 	const [currentAnswer, setCurrentAnswer] = useState<string[]>([])
 

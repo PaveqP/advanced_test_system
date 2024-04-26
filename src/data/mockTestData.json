@@ -1,5 +1,5 @@
 {
-    "deadlineTime": "0.5",
+    "deadlineTime": "10",
     "questions": [
         {
             "number": 1,
@@ -30,7 +30,7 @@
             "type": "short_answer",
             "points": 10,
             "condition": "Расшифруйте аббревиатуру CSS",
-            "answers": ["CSS"],
+            "answers": [],
             "trueAnswer": ["Cascading Style Sheets"]
         },
         {

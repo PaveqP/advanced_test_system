@@ -1,11 +1,20 @@
 import React, { useEffect, useState } from 'react'
-import { UseSelector, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { RootState } from '../../store';
 import { OneAnswer, MultiAnswer, ShortAnswer, FullAnswer } from '../../components';
 import { SetCurrentAnswer, SetCurrentQuestion, SetTotalPoints } from '../../store/testReducer';
 import { store } from '../../store';
 import { useNavigate } from "react-router-dom";
 import './Question.scss'
+
+interface IQuestion{
+    number: number
+    type: string
+    points: number
+    condition: string
+    answers: []
+    trueAnswer: []
+}
 
 function Question() {
 
@@ -43,7 +52,7 @@ function Question() {
 
   return (
     <div className='question'>
-        {testData && testData?.questions.map((question: any) => (
+        {testData && testData?.questions.map((question: IQuestion) => (
             (question.number === currentQuestion) &&
             <form action="" key={question.number}>
                 <p className='question__condition'>
@@ -55,8 +64,8 @@ function Question() {
 					question.type === 'multi_answer'?
 						<MultiAnswer answers={question.answers} points={question.points}/> :
 					question.type === 'short_answer'?
-						<ShortAnswer trueCase={question.trueAnswer} points={question.points}/> : 
-					<FullAnswer trueCase={question.trueAnswer} points={question.points}/>
+						<ShortAnswer/> : 
+					<FullAnswer/>
                 }
                 <button className="question__nextQuestion" type='button' onClick={setQuestionEvent}>
                     Ответить

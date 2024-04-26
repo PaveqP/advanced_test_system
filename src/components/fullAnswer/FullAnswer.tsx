@@ -1,11 +1,7 @@
-import React, { FC } from 'react'
+import React, { FC, memo } from 'react'
 import './FullAnswer.scss'
 
-interface IShortAnswer {
-	trueCase: string,
-  points: number
-}
-const FullAnswer: FC<IShortAnswer> = ({trueCase}) => {
+const FullAnswer: FC = () => {
   return (
     <div className='fullAnswer'>
       <p className='fullAnswer-comment'>*Полный ответ не проверяется автоматически</p>
