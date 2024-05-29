@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/advanced_test_system/static/css/main.0c85f35f.css",
+    "main.js": "/advanced_test_system/static/js/main.afb40aa4.js",
+    "index.html": "/advanced_test_system/index.html",
+    "main.0c85f35f.css.map": "/advanced_test_system/static/css/main.0c85f35f.css.map",
+    "main.afb40aa4.js.map": "/advanced_test_system/static/js/main.afb40aa4.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.0c85f35f.css",
+    "static/js/main.afb40aa4.js"
+  ]
+}
