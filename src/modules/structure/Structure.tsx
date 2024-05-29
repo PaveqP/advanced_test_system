@@ -1,9 +1,8 @@
 import React, {FC} from 'react'
 import './Structure.scss'
-import { useSelector } from 'react-redux';
 import { Timer } from '../../components';
-import { RootState, store } from '../../store';
-import { SetDefaultState } from '../../store/testReducer';
+import { useActions, useTypedSelector } from '../../hooks';
+import { RoutesList } from '../../utils';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -12,18 +11,20 @@ interface IStructure{
 }
 const Structure:FC<IStructure> = ({setTestStarted}) => {
 
-	const testData = useSelector((state: RootState) => state?.test?.testData);
-	const currentQuestion = useSelector((state: RootState) => state?.test?.currentQuestion);
+	const dispatch = useActions()
+
+	const testData = useTypedSelector((state) => state.tests.testData);
+	const currentQuestion = useTypedSelector((state) => state.tests.currentQuestion);
 	const navigate: any = useNavigate();
 
 	const completeTest = () => {
 		// eslint-disable-next-line no-restricted-globals
 		let isComplete = confirm("Вы не ответили на все вопросы. В случае завершения теста, возможность выбирать ответы закроется. Желаете досрочно завершить тест?")
 		if(isComplete){
-			store.dispatch(SetDefaultState())
+			dispatch.setDefaultState()
 			localStorage.clear()
 			setTestStarted(false)
-			navigate('/results')
+			navigate(RoutesList.results)
 		}
 	}
 

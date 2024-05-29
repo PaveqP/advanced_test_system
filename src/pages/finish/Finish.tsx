@@ -1,9 +1,7 @@
 import React, {FC, useEffect} from 'react'
 import './Finish.scss'
-import { useSelector } from 'react-redux';
-import { RootState } from '../../store';
-import { store } from '../../store';
-import { SetDefaultState } from '../../store/testReducer';
+import { useActions, useTypedSelector } from '../../hooks';
+import { RoutesList } from '../../utils';
 import { Link, useNavigate } from 'react-router-dom';
 
 interface IFinish{
@@ -12,21 +10,23 @@ interface IFinish{
 
 const Finish:FC<IFinish> = ({setTestStarted}) => {
 
-  const testData = useSelector((state: RootState) => state?.test?.totalPoints);
-  const navigate: any = useNavigate();
+	const dispatch = useActions()
 
-  const clear = () => {
-	store.dispatch(SetDefaultState())
-	localStorage.clear()
-	setTestStarted(false)
-  }
+	const testData = useTypedSelector((state) => state.tests.totalPoints);
+	const navigate: any = useNavigate();
 
-  useEffect(() => {
-	window.addEventListener('popstate', () => {
-		clear()
-		navigate('/')
-	})
-  }, [navigate])
+	const clear = () => {
+		dispatch.setDefaultState()
+		localStorage.clear()
+		setTestStarted(false)
+	}
+
+	useEffect(() => {
+		window.addEventListener('popstate', () => {
+			clear()
+			navigate(RoutesList.home)
+		})
+	}, [navigate])
 
   return (
     <div className='finish'>
@@ -35,7 +35,7 @@ const Finish:FC<IFinish> = ({setTestStarted}) => {
 		<div className="results__separator"></div>
 		<p className='results__result'>Ваш результат: {String(testData)}</p>
 		<div className="results__separator"></div>
-		<Link to='/'>
+		<Link to={RoutesList.home}>
       		<button className="results__restart" onClick={clear}>Начать заново</button>
 	    </Link>
 	  </div>

@@ -1,14 +1,15 @@
-import React, { FC, memo, useState } from 'react'
+import React, { FC, useState } from 'react'
 import './ShortAnswer.scss'
-import { SetCurrentAnswer } from '../../store/testReducer'
-import { store } from '../../store'
+import { useActions } from '../../hooks'
 
 const ShortAnswer: FC = () => {
+
+	const dispatch = useActions()
 
 	const [currentAnswer, setCurrentAnswer] = useState<string[]>([])
 
 	const handleSetCurrentAnswer = (answer: string) => {
-		store.dispatch(SetCurrentAnswer([answer]));
+		dispatch.setCurrentAnswer([answer])
 		setCurrentAnswer([answer]);
 	};
 

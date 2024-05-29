@@ -1,8 +1,6 @@
 import React, { useEffect, FC } from 'react'
 import './Test.scss'
-import { useSelector } from 'react-redux';
-import { RootState, store } from '../../store';
-import { SetTest } from '../../store/testReducer';
+import { useTypedSelector, useActions } from '../../hooks';
 import { Question, Structure, TestInfo } from '../../modules';
 
 interface ITest{
@@ -10,12 +8,14 @@ interface ITest{
 }
 const Test:FC<ITest> = ({setTestStarted}) => {
 
-	const testData = useSelector((state: RootState) => state?.test?.testData);
+	const testData = useTypedSelector((state) => state.tests.testData);
+
+	const dispatch = useActions()
 
 	const requestData = async () => {
 		try {
 			const response = await require('../../data/mockTestData.json')
-			store.dispatch(SetTest(response))
+			dispatch.setData(response)
 		} catch (error) {
 			throw new Error(`Error: ${error}`)
 		}

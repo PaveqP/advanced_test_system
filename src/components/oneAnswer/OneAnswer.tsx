@@ -1,6 +1,5 @@
 import React, { FC, useState } from 'react'
-import { store } from '../../store'
-import { SetCurrentAnswer } from '../../store/testReducer'
+import { useActions } from '../../hooks'
 import './OneAnswer.scss'
 
 interface IAnswers {
@@ -9,10 +8,12 @@ interface IAnswers {
 }
 const OneAnswer: FC<IAnswers> = ({answers}) => {
 
+	const dispatch = useActions()
+
 	const [currentAnswer, setCurrentAnswer] = useState<string[]>([])
 
 	const handleSetCurrentAnswer = (answer: string) => {
-		store.dispatch(SetCurrentAnswer([answer]));
+		dispatch.setCurrentAnswer([answer])
 		setCurrentAnswer([answer]);
 	};
 

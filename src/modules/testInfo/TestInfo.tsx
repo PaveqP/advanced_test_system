@@ -1,11 +1,10 @@
 import React from 'react'
 import './TestInfo.scss'
-import { useSelector } from 'react-redux';
-import { RootState } from '../../store';
+import { useTypedSelector } from '../../hooks';
 
 function TestInfo() {
 
-  const currentQuestion = useSelector((state: RootState) => state?.test?.currentQuestion);
+  const currentQuestion = useTypedSelector((state) => state.tests.currentQuestion);
 
   return (
     <div className='testInfo'>

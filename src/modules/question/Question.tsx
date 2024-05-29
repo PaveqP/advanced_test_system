@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
-import { RootState } from '../../store';
 import { OneAnswer, MultiAnswer, ShortAnswer, FullAnswer } from '../../components';
-import { SetCurrentAnswer, SetCurrentQuestion, SetTotalPoints } from '../../store/testReducer';
-import { store } from '../../store';
+import { useActions, useTypedSelector } from '../../hooks'
 import { useNavigate } from "react-router-dom";
+import { RoutesList } from '../../utils';
 import './Question.scss'
 
 interface IQuestion{
@@ -18,10 +16,12 @@ interface IQuestion{
 
 function Question() {
 
-    const testData = useSelector((state: RootState) => state?.test?.testData);
-    const currentAnswer = useSelector((state: RootState) => state?.test?.currentAnswer);
-    const totalPoints = useSelector((state: RootState) => state?.test?.totalPoints);
+    const testData = useTypedSelector((state) => state.tests.testData);
+    const currentAnswer = useTypedSelector((state) => state.tests.currentAnswer);
+    const totalPoints = useTypedSelector((state) => state.tests.totalPoints);
     const navigate: any = useNavigate();
+
+    const dispatch = useActions()
 
     const initialCurrentQuestion = Number(localStorage.getItem('currentQuestion')) || 1;
     const [currentQuestion, setCurrentQuestion] = useState<number>(initialCurrentQuestion);
@@ -29,7 +29,7 @@ function Question() {
     const setQuestionEvent = () => {
         let currentQuestionData: any = testData.questions.find((question: any) => question.number === currentQuestion)
         if ((JSON.stringify(currentQuestionData.trueAnswer) === JSON.stringify(currentAnswer)) && currentQuestionData.type !== "full_answer"){
-            store.dispatch(SetTotalPoints(totalPoints + currentQuestionData.points))
+            dispatch.setTotalPoints(totalPoints + currentQuestionData.points)
         }
 		if (currentQuestion + 1 <= testData.questions.length){
             if (!currentAnswer[0]){
@@ -39,15 +39,30 @@ function Question() {
             } else{
                 setCurrentQuestion(currentQuestion => currentQuestion + 1);
             }
-            store.dispatch(SetCurrentAnswer([]))
+            dispatch.setCurrentAnswer([])
 		} else {
-            navigate('/results')
+            navigate(RoutesList.results)
         }
     }
 
+    const renderQuestionType = (question: IQuestion) => {
+        switch (question.type) {
+          case 'one_answer':
+            return <OneAnswer answers={question.answers} points={question.points} />;
+          case 'multi_answer':
+            return <MultiAnswer answers={question.answers} points={question.points} />;
+          case 'short_answer':
+            return <ShortAnswer />;
+          case 'full_answer':
+            return <FullAnswer />;
+          default:
+            return null;
+        }
+      };
+
     useEffect(() => {
         localStorage.setItem('currentQuestion', String(currentQuestion));
-        store.dispatch(SetCurrentQuestion(currentQuestion));
+        dispatch.setCurrentQuestion(currentQuestion)
     }, [currentQuestion]);
 
   return (
@@ -59,13 +74,7 @@ function Question() {
                     {question.condition}
                 </p>
                 {
-                    question.type === 'one_answer'?
-						<OneAnswer answers={question.answers} points={question.points}/> :
-					question.type === 'multi_answer'?
-						<MultiAnswer answers={question.answers} points={question.points}/> :
-					question.type === 'short_answer'?
-						<ShortAnswer/> : 
-					<FullAnswer/>
+                    renderQuestionType(question)
                 }
                 <button className="question__nextQuestion" type='button' onClick={setQuestionEvent}>
                     Ответить

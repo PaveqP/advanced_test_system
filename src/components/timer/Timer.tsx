@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import './Timer.scss'
-import { useSelector } from 'react-redux';
-import { RootState } from '../../store';
+import { useTypedSelector } from '../../hooks';
+import { RoutesList } from '../../utils';
 import { useNavigate } from 'react-router-dom';
 
 function Timer() {
 
-    const testData = useSelector((state: RootState) => state?.test?.testData);
+    const testData = useTypedSelector((state) => state.tests.testData)
 
     const [seconds, setSeconds] = useState<number>(localStorage.getItem('countdown') ? parseInt(localStorage.getItem('countdown')!) : Number(testData.deadlineTime) * 60)
     const navigate: any = useNavigate();
@@ -25,7 +25,7 @@ function Timer() {
 
     useEffect(() => {
         if (seconds === 0) {
-            navigate('/results')
+            navigate(RoutesList.results)
         }
     }, [seconds]);
     

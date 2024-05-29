@@ -1,13 +1,14 @@
-import React, { FC, memo, useEffect, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import './MultiAnswer.scss'
-import { SetCurrentAnswer } from '../../store/testReducer'
-import { store } from '../../store'
+import { useActions } from '../../hooks'
 
 interface IAnswers {
 	answers: [],
 	points: number
 }
 const MultiAnswer: FC<IAnswers> = ({ answers }) => {
+
+    const dispatch = useActions()
 
     const [selectedAnswers, setSelectedAnswers] = useState<string[]>([]);
 
@@ -22,7 +23,7 @@ const MultiAnswer: FC<IAnswers> = ({ answers }) => {
 	};
 
 	useEffect(() => {
-        store.dispatch(SetCurrentAnswer(selectedAnswers));
+        dispatch.setCurrentAnswer(selectedAnswers);
     }, [selectedAnswers]);
 
     return (
