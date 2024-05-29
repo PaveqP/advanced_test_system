@@ -75,3 +75,13 @@
     line-height: 30px;
     font-weight: bold;
 }
+
+.structureButton:hover{
+    scale: 1.02;
+    transition: 0.3s;
+}
+
+.structureButton:not(:hover){
+    scale: 1;
+    transition: 0.3s;
+}

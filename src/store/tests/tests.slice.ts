@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { testStateType } from "./tests.types";
+import { LocalStorageKeys } from "../../utils";
 
 const initialState: testStateType = {
     testData: {
@@ -22,6 +23,7 @@ export const testsSlice = createSlice({
             state.currentQuestion = action.payload
         },
         setCurrentAnswer: (state: testStateType, action) => {
+            localStorage.setItem(LocalStorageKeys.currentAnswer, JSON.stringify(action.payload))
             state.currentAnswer = action.payload
         },
         setTotalPoints: (state: testStateType, action) => {

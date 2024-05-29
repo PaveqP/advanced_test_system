@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { OneAnswer, MultiAnswer, ShortAnswer, FullAnswer } from '../../components';
 import { useActions, useTypedSelector } from '../../hooks'
 import { useNavigate } from "react-router-dom";
-import { RoutesList } from '../../utils';
+import { RoutesList, LocalStorageKeys } from '../../utils';
 import './Question.scss'
 
 interface IQuestion{
@@ -23,12 +23,14 @@ function Question() {
 
     const dispatch = useActions()
 
-    const initialCurrentQuestion = Number(localStorage.getItem('currentQuestion')) || 1;
+    const initialCurrentQuestion = Number(localStorage.getItem(LocalStorageKeys.currentQuestion)) || 1;
     const [currentQuestion, setCurrentQuestion] = useState<number>(initialCurrentQuestion);
 
     const setQuestionEvent = () => {
         let currentQuestionData: any = testData.questions.find((question: any) => question.number === currentQuestion)
         if ((JSON.stringify(currentQuestionData.trueAnswer) === JSON.stringify(currentAnswer)) && currentQuestionData.type !== "full_answer"){
+            const currentPoints = Number(localStorage.getItem(LocalStorageKeys.points))
+            localStorage.setItem(LocalStorageKeys.points, String((totalPoints ? totalPoints : currentPoints) + currentQuestionData.points))
             dispatch.setTotalPoints(totalPoints + currentQuestionData.points)
         }
         if (currentQuestion + 1 <= testData.questions.length){
@@ -61,7 +63,7 @@ function Question() {
       };
 
     useEffect(() => {
-        localStorage.setItem('currentQuestion', String(currentQuestion));
+        localStorage.setItem(LocalStorageKeys.currentQuestion, String(currentQuestion));
         dispatch.setCurrentQuestion(currentQuestion)
     }, [currentQuestion]);
 
@@ -72,6 +74,9 @@ function Question() {
             <form action="" key={question.number}>
                 <p className='question__condition'>
                     {question.condition}
+                </p>
+                <p className='question__points'>
+                  *За правильный ответ на этот вопрос вы получите {question.points} баллов.
                 </p>
                 {
                     renderQuestionType(question)

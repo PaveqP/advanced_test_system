@@ -1,7 +1,7 @@
 import React, {FC, useEffect} from 'react'
 import './Finish.scss'
 import { useActions, useTypedSelector } from '../../hooks';
-import { RoutesList } from '../../utils';
+import { RoutesList, LocalStorageKeys } from '../../utils';
 import { Link, useNavigate } from 'react-router-dom';
 
 interface IFinish{
@@ -33,7 +33,7 @@ const Finish:FC<IFinish> = ({setTestStarted}) => {
       <p className="finish__title">Вы закончили тестирование!</p>
 	  <div className="finish__results">
 		<div className="results__separator"></div>
-		<p className='results__result'>Ваш результат: {String(testData)}</p>
+		<p className='results__result'>Ваш результат: {localStorage.getItem(LocalStorageKeys.points) ? localStorage.getItem(LocalStorageKeys.points) : String(testData)}</p>
 		<div className="results__separator"></div>
 		<Link to={RoutesList.home}>
       		<button className="results__restart" onClick={clear}>Начать заново</button>

@@ -9,6 +9,7 @@ function App() {
 
 	const [testStarted, setTestStarted] = useState(false)
 
+
   return (
     <div className="App">
 		<HashRouter>

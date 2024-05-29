@@ -21,8 +21,6 @@ const Structure:FC<IStructure> = ({setTestStarted}) => {
 		// eslint-disable-next-line no-restricted-globals
 		let isComplete = confirm("Вы не ответили на все вопросы. В случае завершения теста, возможность выбирать ответы закроется. Желаете досрочно завершить тест?")
 		if(isComplete){
-			// dispatch.setDefaultState()
-			//localStorage.clear()
 			setTestStarted(false)
 			navigate(RoutesList.results)
 		}

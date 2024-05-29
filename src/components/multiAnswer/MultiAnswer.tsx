@@ -1,5 +1,6 @@
 import React, { FC, useEffect, useState } from 'react'
 import './MultiAnswer.scss'
+import { GetAnswers } from '../../utils'
 import { useActions } from '../../hooks'
 
 interface IAnswers {
@@ -10,9 +11,7 @@ const MultiAnswer: FC<IAnswers> = ({ answers }) => {
 
     const dispatch = useActions()
 
-    const [selectedAnswers, setSelectedAnswers] = useState<string[]>([]);
-
-    console.log(localStorage.getItem('currentAnswer'))
+    const [selectedAnswers, setSelectedAnswers] = useState<string[]>(GetAnswers());
 
     const handleCheckboxChange = (answer: string, checked: boolean) => {
 		setSelectedAnswers(prevSelectedAnswers => {

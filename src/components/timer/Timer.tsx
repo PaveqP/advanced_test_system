@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import './Timer.scss'
 import { useTypedSelector } from '../../hooks';
-import { RoutesList } from '../../utils';
+import { RoutesList, LocalStorageKeys } from '../../utils';
 import { useNavigate } from 'react-router-dom';
 
 function Timer() {
@@ -9,7 +9,7 @@ function Timer() {
     const testData = useTypedSelector((state) => state.tests.testData)
 
     const getInitialSeconds = (): number => {
-      const storedCountdown = localStorage.getItem('countdown');
+      const storedCountdown = localStorage.getItem(LocalStorageKeys.countdown);
       if (storedCountdown) {
         const parsedCountdown = parseInt(storedCountdown, 10);
         if (!isNaN(parsedCountdown)) {
@@ -26,7 +26,7 @@ function Timer() {
         const timer = setInterval(() => {
           setSeconds(prevSeconds => {
             const newSeconds = prevSeconds - 1;
-            localStorage.setItem('countdown', newSeconds.toString());
+            localStorage.setItem(LocalStorageKeys.countdown, newSeconds.toString());
             return newSeconds > 0 ? newSeconds : 0; 
           });
         }, 1000);

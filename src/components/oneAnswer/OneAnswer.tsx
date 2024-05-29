@@ -1,5 +1,6 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { useActions } from '../../hooks'
+import { GetAnswers } from '../../utils'
 import './OneAnswer.scss'
 
 interface IAnswers {
@@ -10,10 +11,15 @@ const OneAnswer: FC<IAnswers> = ({answers}) => {
 
 	const dispatch = useActions()
 
+	const [selectedAnswer, setSelectedAnswer] = useState<string[]>(GetAnswers());
+
 	const handleSetCurrentAnswer = (answer: string) => {
-		dispatch.setCurrentAnswer([answer])
-		localStorage.setItem('currentAnswer', JSON.stringify([answer]))
+		setSelectedAnswer([answer]);
 	};
+
+	useEffect(() => {
+        dispatch.setCurrentAnswer(selectedAnswer);
+    }, [selectedAnswer]);
 
   return (
     <div className='oneAnswer'>
@@ -21,7 +27,13 @@ const OneAnswer: FC<IAnswers> = ({answers}) => {
 			{
 				answers.map((answer) => (
 					<li className="variants-variant" key={answers.indexOf(answer)}>
-						<input type="radio" name="answer" id={String(answers.indexOf(answer))} onChange={() => handleSetCurrentAnswer(answer)}/>
+						<input 
+							type="radio" 
+							name="answer" 
+							checked={selectedAnswer.includes(answer)}
+							id={String(answers.indexOf(answer))} 
+							onChange={() => handleSetCurrentAnswer(answer)}
+						/>
 						<p className="variant-text">{answer}</p>
 					</li>
 				))
