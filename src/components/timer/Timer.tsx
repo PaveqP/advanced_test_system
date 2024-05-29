@@ -8,7 +8,18 @@ function Timer() {
 
     const testData = useTypedSelector((state) => state.tests.testData)
 
-    const [seconds, setSeconds] = useState<number>(localStorage.getItem('countdown') ? parseInt(localStorage.getItem('countdown')!) : Number(testData.deadlineTime) * 60)
+    const getInitialSeconds = (): number => {
+      const storedCountdown = localStorage.getItem('countdown');
+      if (storedCountdown) {
+        const parsedCountdown = parseInt(storedCountdown, 10);
+        if (!isNaN(parsedCountdown)) {
+          return parsedCountdown;
+        }
+      }
+      return Number(testData.deadlineTime) * 60;
+    };
+
+    const [seconds, setSeconds] = useState<number>(getInitialSeconds());
     const navigate: any = useNavigate();
 
     useEffect(() => {

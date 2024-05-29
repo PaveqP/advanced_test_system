@@ -31,17 +31,17 @@ function Question() {
         if ((JSON.stringify(currentQuestionData.trueAnswer) === JSON.stringify(currentAnswer)) && currentQuestionData.type !== "full_answer"){
             dispatch.setTotalPoints(totalPoints + currentQuestionData.points)
         }
-		if (currentQuestion + 1 <= testData.questions.length){
-            if (!currentAnswer[0]){
-                // eslint-disable-next-line no-restricted-globals
-                let isNext = confirm("Вы не ответили на вопрос. В случае продолжения, вы не сможете вернуться к этому вопросу. Продолжить?")
-                isNext && setCurrentQuestion(currentQuestion => currentQuestion + 1);
-            } else{
-                setCurrentQuestion(currentQuestion => currentQuestion + 1);
-            }
-            dispatch.setCurrentAnswer([])
-		} else {
-            navigate(RoutesList.results)
+        if (currentQuestion + 1 <= testData.questions.length){
+                if (!currentAnswer[0]){
+                    // eslint-disable-next-line no-restricted-globals
+                    let isNext = confirm("Вы не ответили на вопрос. В случае продолжения, вы не сможете вернуться к этому вопросу. Продолжить?")
+                    isNext && setCurrentQuestion(currentQuestion => currentQuestion + 1);
+                } else{
+                    setCurrentQuestion(currentQuestion => currentQuestion + 1);
+                }
+                dispatch.setCurrentAnswer([])
+        } else {
+          navigate(RoutesList.results)
         }
     }
 

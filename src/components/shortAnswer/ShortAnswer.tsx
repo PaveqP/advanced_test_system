@@ -6,11 +6,8 @@ const ShortAnswer: FC = () => {
 
 	const dispatch = useActions()
 
-	const [currentAnswer, setCurrentAnswer] = useState<string[]>([])
-
 	const handleSetCurrentAnswer = (answer: string) => {
 		dispatch.setCurrentAnswer([answer])
-		setCurrentAnswer([answer]);
 	};
 
   return (

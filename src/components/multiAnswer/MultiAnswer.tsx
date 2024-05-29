@@ -12,6 +12,8 @@ const MultiAnswer: FC<IAnswers> = ({ answers }) => {
 
     const [selectedAnswers, setSelectedAnswers] = useState<string[]>([]);
 
+    console.log(localStorage.getItem('currentAnswer'))
+
     const handleCheckboxChange = (answer: string, checked: boolean) => {
 		setSelectedAnswers(prevSelectedAnswers => {
 			if (checked) {

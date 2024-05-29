@@ -10,11 +10,9 @@ const OneAnswer: FC<IAnswers> = ({answers}) => {
 
 	const dispatch = useActions()
 
-	const [currentAnswer, setCurrentAnswer] = useState<string[]>([])
-
 	const handleSetCurrentAnswer = (answer: string) => {
 		dispatch.setCurrentAnswer([answer])
-		setCurrentAnswer([answer]);
+		localStorage.setItem('currentAnswer', JSON.stringify([answer]))
 	};
 
   return (
